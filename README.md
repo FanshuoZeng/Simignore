@@ -1,4 +1,4 @@
-<h1 align="center">Simignore</h1>
+<h1 align="center">Simignore:Enhancing Multimodal large language Models complex reason via Similarity Computation between Image and Text Embeddings</h1>
 
 
 
