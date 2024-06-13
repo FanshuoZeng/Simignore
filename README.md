@@ -1,4 +1,4 @@
-<h1 align="center">FastV</h1>
+<h1 align="center">Simignore</h1>
 
 <p align="center">
 <a href="https://arxiv.org/abs/2403.06764">
