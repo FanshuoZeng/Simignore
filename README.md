@@ -5,7 +5,7 @@
 
 <div align=center>
 <img width="300" src="./fig/structure.pdf"/><br>
-Results 
+Structure
 </div>
 
 
