@@ -1,12 +1,5 @@
 <h1 align="center">Simignore</h1>
 
-<p align="center">
-<a href="https://arxiv.org/abs/2403.06764">
-<img alt="Static Badge" src="https://img.shields.io/badge/FastV-ArXiv-red"></a>
-
-
-
-
 
 
 
