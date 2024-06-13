@@ -3,7 +3,10 @@
 
 
 
-
+<div align=center>
+<img width="300" src="./fig/structure.pdf"/><br>
+Results 
+</div>
 
 
 
@@ -32,10 +35,10 @@ We provide code to reproduce the ablation study on K and R values, as shown in f
 bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace.sh 
 ```
 
-<div align=center>
-<img width="300" src="./figs/ablation_ocrvqa.png"/><br>
-Results 
-</div>
+
+
+
+
 
 
 ### Latency Experiment Reproduction
