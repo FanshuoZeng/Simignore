@@ -23,44 +23,13 @@ bash setup.sh
 ```
 
 
-## Online Demo
-
-We provide an [online demo](https://www.fastv.work/) for the FastV model. You can upload an image, enter a prompt, and select the number of layers to get the generated response and visualize the attention maps.
-
-If you want to start your own demo, run the following script:
-```bash
-python demo.py --model-path ./llava-v1.5-7b
-```
-
-## Visualization: Inefficient Attention over Visual Tokens 
-
-we provide a script (./src/FastV/inference/visualization.sh) to reproduce the visualization result of each LLaVA model layer for a given image and prompt.
-
-```bash
-bash ./src/FastV/inference/visualization.sh
-```
-or
-```bash
-python ./src/FastV/inference/plot_inefficient_attention.py \
-    --model-path "PATH-to-HF-LLaVA1.5-Checkpoints" \
-    --image-path "./src/LLaVA/images/llava_logo.png" \
-    --prompt "Describe the image in details."\
-    --output-path "./output_example"\
-```
-
-Model output and attention maps for different layers would be stored at "./output_example"
-
-<div align=center>
-<img width="600" src="./figs/attn_map.png"/>
-</div>
-
-## FastV Inference and Evaluation
+## Simignore Inference and Evaluatio
 
 We provide code to reproduce the ablation study on K and R values, as shown in figure-7 in the paper. This implementation masks out the discarded tokens (no speed up) in deep layers for convenience and fair performance comparison.
 
-*ocrvqa*
+*ScienceQA(Image)*
 ```bash
-bash ./src/FastV/inference/eval/eval_ocrvqa_fastv_token_mask
+bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace.sh 
 ```
 
 <div align=center>
