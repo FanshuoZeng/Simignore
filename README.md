@@ -25,6 +25,7 @@ bash setup.sh
 ```
 
 ## ScienceQA dataset
+You can download ScienceQA from [Google Drive]([https://www.google.com](https://drive.google.com/drive/folders/1w8imCXWYn2LxajmGeGH_g5DaL2rabHev)) and unzip the images under data/scienceqa/images.
 
 
 ## Simignore Zero-shot Inference
