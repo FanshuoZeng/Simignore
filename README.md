@@ -1,14 +1,4 @@
-<h1 align="center">FastV</h1>
-
-<p align="center">
-<a href="https://arxiv.org/abs/2403.06764">
-<img alt="Static Badge" src="https://img.shields.io/badge/FastV-ArXiv-red"></a>
-
-<a href="https://www.fastv.work/">
-<img alt="Static Badge" src="https://img.shields.io/badge/Demo-Gradio-yellow"></a>
-</p>
-
-*FastV is a plug-and-play inference acceleration method for large vision language models relying on visual tokens. It could reach 45\% theoretical FLOPs reduction without harming the performance through pruning redundant visual tokens in deep layers.*
+<h1 align="center">Simignore</h1>
 
 
 
@@ -21,37 +11,13 @@
 
 
 
-<div align=center>
-
-Tutorial video on youtube. Thanks to [
-Soroush Mehraban](https://www.youtube.com/@soroushmehraban)!
-
-[![Explaining Video](https://img.youtube.com/vi/V0I6ntvb9pQ/0.jpg)](https://www.youtube.com/watch?v=V0I6ntvb9pQ)
-    
-https://github.com/pkunlp-icler/FastV/assets/43977888/e6ae44b9-ebb9-4b69-b534-cee3441b1d22
 
 
-<img width="600" src="./figs/fastv_tradeoff.png"/>
-</div>
-
----
-*Scheduled Updates🔥*
-
-0. - [x] Setup
-1. - [x] Visualization [Online Demo](https://www.fastv.work/)
-2. - [x] LVLM Inefficent Visual Attention Visualization Code
-3. - [x] FastV Inference and Evaluation
-4. - [x] Latency Test Reproduction Guideline
-5. - [x] Support HuggingFace Models (LLaVA)
-6. - [x] Support KV Cache
-7. - [x] Support lmms-eval and report results
-
-Stay tuned!
 
 ## Setup
 ```bash
-conda create -n fastv python=3.10
-conda activate fastv
+conda create -n simignore python=3.10
+conda activate simignore
 cd src
 bash setup.sh
 ```
