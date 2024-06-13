@@ -18,37 +18,14 @@
 
 
 
-<div align=center>
-
-Tutorial video on youtube. Thanks to [
-Soroush Mehraban](https://www.youtube.com/@soroushmehraban)!
-
-[![Explaining Video](https://img.youtube.com/vi/V0I6ntvb9pQ/0.jpg)](https://www.youtube.com/watch?v=V0I6ntvb9pQ)
-    
-https://github.com/pkunlp-icler/FastV/assets/43977888/e6ae44b9-ebb9-4b69-b534-cee3441b1d22
 
 
-<img width="600" src="./figs/fastv_tradeoff.png"/>
-</div>
 
----
-*Scheduled Updates🔥*
-
-0. - [x] Setup
-1. - [x] Visualization [Online Demo](https://www.fastv.work/)
-2. - [x] LVLM Inefficent Visual Attention Visualization Code
-3. - [x] FastV Inference and Evaluation
-4. - [x] Latency Test Reproduction Guideline
-5. - [x] Support HuggingFace Models (LLaVA)
-6. - [x] Support KV Cache
-7. - [x] Support lmms-eval and report results
-
-Stay tuned!
 
 ## Setup
 ```bash
-conda create -n fastv python=3.10
-conda activate fastv
+conda create -n simignore python=3.10
+conda activate simignore
 cd src
 bash setup.sh
 ```
