@@ -28,7 +28,7 @@ bash setup.sh
 You can download **ScienceQA** from [Google Drive](https://drive.google.com/drive/folders/1w8imCXWYn2LxajmGeGH_g5DaL2rabHev?usp=sharing) and unzip the images under `data/scienceqa/images`.
 
 ## Simignore Zero-shot Inference
-We provide the Zero-shot inference procedure for the LLaVA1.5-7b model and the LLaVA1.5-13b model on the *ScienceQA(Image)* dataset.
+We provide the Zero-shot inference procedure for the LLaVA1.5-7b model and the LLaVA1.5-13b model on the *ScienceQA(Image)* dataset. We conduct the following experiments on one 4090D GPU (24G)
 
 ```bash
 bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace.sh
