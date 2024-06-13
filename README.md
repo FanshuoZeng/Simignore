@@ -5,7 +5,7 @@
 <img alt="Static Badge" src="https://img.shields.io/badge/FastV-ArXiv-red"></a>
 </p>
 
-*FastV is a plug-and-play inference acceleration method for large vision language models relying on visual tokens. It could reach 45\% theoretical FLOPs reduction without harming the performance through pruning redundant visual tokens in deep layers.*
+
 
 
 
