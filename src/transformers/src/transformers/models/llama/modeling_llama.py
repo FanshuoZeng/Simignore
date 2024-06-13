@@ -586,7 +586,7 @@ class LlamaModel(LlamaPreTrainedModel):
         self.fast_v_agg_layer = config.fast_v_agg_layer
         self.fast_v_inplace = config.fast_v_inplace
     
-    def reset_fastv(self):
+    def reset_simignore(self):
         self.use_fast_v = self.config.use_fast_v
         self.fast_v_sys_length = self.config.fast_v_sys_length
         self.fast_v_image_token_length = self.config.fast_v_image_token_length
@@ -639,18 +639,7 @@ class LlamaModel(LlamaPreTrainedModel):
         output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, BaseModelOutputWithPast]:
-        # print("LlamaModel.forward函数")
-        # print("inputs_embeds是是：：：：：：：：：：：：：：：：：：：222")
-        # print(inputs_embeds.shape)
-        # print(inputs_embeds)
-        # print("LlamaModel.forward函数中input_ids是：")
-        # print(input_ids) #None
-        # print("LlamaModel.forward函数里的output_attentions是：")
-        # print(position_ids)
 
-        # print("传入的attention_mask是：")
-        # print(attention_mask)
-        # print(attention_mask.shape) # torch.Size([1, 675])
 
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
@@ -714,15 +703,12 @@ class LlamaModel(LlamaPreTrainedModel):
         device = input_ids.device if input_ids is not None else inputs_embeds.device
 
         for idx, decoder_layer in enumerate(self.layers):
-            # print("self.layers是：")
-            # print(idx)
+
             if output_hidden_states:
                 all_hidden_states += (hidden_states,)
 
             past_key_value = past_key_values[idx] if past_key_values is not None else None
-            # print("attention_mask")
-            # # print(attention_mask.shape) # torch.Size([1, 1, 675, 675])
-            # print(attention_mask[0][0][0])
+
 
             if self.gradient_checkpointing and self.training:
                 def create_custom_forward(module):
@@ -731,9 +717,7 @@ class LlamaModel(LlamaPreTrainedModel):
                         return module(*inputs, output_attentions, None)
 
                     return custom_forward
-                print("走到这走到这走到这走到这走到这走到这走到这走到这走到这走到这走到这走到这")
-                # print("attention_mask是：")
-                # print(attention_mask.shape)
+
                 layer_outputs = torch.utils.checkpoint.checkpoint(
                     create_custom_forward(decoder_layer),
                     hidden_states,
@@ -749,198 +733,65 @@ class LlamaModel(LlamaPreTrainedModel):
                 ATTENTION_RANK = self.fast_v_attention_rank
                 AGG_LAYER = self.fast_v_agg_layer
                 FASTV_INPLACE = self.fast_v_inplace
-                '''
-                USE_FAST_V:指示是否应使用 FastV 优化的布尔标志。
-                SYS_LENGTH:输入序列中系统提示令牌的长度。
-                IMAGE_TOKEN_LENGTH:输入序列中的图像标记数。
-                ATTENTION_RANK:根据关注度分数指定要保留的图像标记数。
-                AGG_LAYER:模型中应用图像标记修剪的图层。
-                FASTV_INPLACE:指示是否应就地进行 FastV 优化的标志。
-                '''
-                
+ 
                 if AGG_LAYER:
                     assert AGG_LAYER > 0 , "K should be larger than 0"
 
                 
-
-                # FastV Token Rerank, Token Drop Implementation, KV-Cache not supported
-                # FastV 令牌重新排序、令牌删除实施、不支持 KV 缓存
                 if USE_FAST_V and FASTV_INPLACE:
-                    #print("using inplace")
-                    '''
-                    在这种模式下，FastV优化通过修剪不太重要的图像标记来直接修改标记的序列。 
-                    从某种意义上说，它是一种“就地”操作，即令牌序列的修剪和重组直接应用于现有序列。
-                    重点是通过删除某些标记来动态调整序列，从而改变序列长度，从而改变后续层中的注意力计算。
-                    '''
+
                     if idx<AGG_LAYER:
                         new_attention_mask = attention_mask
-                        # print("idx<AGG_LAYER时的attention_mask是：") # # new_attention_mask[0][0]是一个反对角线下三角为0的矩阵
-                        # print(attention_mask.shape) # torch.Size([1, 1, 675, 675])
-                        # print(attention_mask)
-                        if idx == 24:
-                            if False:
-                                print("")
-                                print(new_attention_mask[0][0][400][:100])
-                                # 创建一个随机的注意力矩阵，实际使用中可以替换成你的注意力矩阵
-                                attention_matrix = new_attention_mask
-
-                                # # 移除不必要的维度
-                                # attention_matrix = attention_matrix.squeeze()
-                                # # 将张量从 GPU 复制到 CPU
-                                # attention_matrix = attention_matrix.cpu()
-                                # # 使用Agg后端
-                                # plt.switch_backend('Agg')
-                                # # 可视化矩阵
-                                # plt.figure(figsize=(10, 10))
-                                # plt.imshow(attention_matrix.numpy(), cmap='viridis')
-                                # plt.colorbar()
-                                # plt.title('Attention Matrix Visualization')
-
-                                # 移除不必要的维度
-                                attention_matrix = attention_matrix.squeeze()
-                                # 将张量从 GPU 复制到 CPU
-                                attention_matrix = attention_matrix.cpu().numpy()
-                                # 创建一个掩码，只保留下三角部分
-                                mask = np.tril(np.ones_like(attention_matrix))
-                                # 应用掩码，将上三角部分设置为NaN
-                                attention_matrix = np.where(mask, attention_matrix, np.nan)
-                                # 使用Agg后端
-                                plt.switch_backend('Agg')
-                                # 可视化下三角部分的矩阵
-                                plt.figure(figsize=(10, 10))
-                                plt.imshow(attention_matrix, cmap='viridis', interpolation='none')
-                                plt.colorbar()
-                                plt.title('Lower Triangular Part of Attention Matrix')
-
-                                # 保存图片到文件
-                                plt.savefig('/hy-tmp/FastV/attention_image/attention_matrix_visualization_0.png')
-                                print("The attention matrix visualization has been saved as 'attention_matrix_visualization.png'.")
-
                     elif idx==AGG_LAYER:
-                        # compute pruned tokens, generate fastv sign
-                        # 计算剪枝token，生成 fastv 符号
-                        # 可能上一层得到
                         last_layer_attention = layer_outputs[1]
-                        # print("last_layer_attention是：") # 维度是torch.Size([1, 32, 675, 675])
-                        # print(last_layer_attention.shape)
-                        # print(last_layer_attention[0][31]) # last_layer_attention[0][31]是一个上三角为0的矩阵
-                        # print("在在在在在在")
-                        # # # print(layer_outputs[1].shape())
-                        # print(layer_outputs[1])
-                        # compute average attention over different head
-                        # 计算不同头部的平均注意力
                         last_layer_attention_avg = torch.mean(last_layer_attention, dim=1)[0]
-                        # print("last_layer_attention_avg是：") # torch.Size([675, 675])
-                        # print(last_layer_attention_avg.shape)
-                        # print(last_layer_attention_avg)
-                        
-                        # generate new attention mask based on the average attention, sample the top ATTENTION_RANK tokens with highest attention
-                        # 根据平均注意力生成新的注意力掩模，对注意力最高的前 ATTENTION_RANK 标记进行采样
                         last_layer_attention_avg_last_tok = last_layer_attention_avg[-1]
-                        # print("last_layer_attention_avg_last_tok的长度")
-                        # print(len(last_layer_attention_avg_last_tok)) # 675
-                        # get the attention in image token
-                        # 获得图像token中的注意力
-                        # print("SYS_LENGTH:SYS_LENGTH+IMAGE_TOKEN_LENGTH")
-                        # print(SYS_LENGTH, SYS_LENGTH+IMAGE_TOKEN_LENGTH)
                         last_layer_attention_avg_last_tok_image = last_layer_attention_avg_last_tok[SYS_LENGTH:SYS_LENGTH+IMAGE_TOKEN_LENGTH]
-                        # print(last_layer_attention_avg_last_tok_image.shape)
-
-
-
 
                         def sample_image_tensor(image_tensor, k1, k2, k):
-                            # 确保k1, k2, k的合理性
                             assert 0 <= k1 < k2 <= image_tensor.numel(), "k1和k2应该在image_tensor的范围内"
                             assert k > 0, "k应该大于0"
-                            # 生成从0到1的k个均匀分布的数
+
                             uniform_samples = np.linspace(0, 1, k)
-                            # 使用指数分布变换均匀分布的数，使得取样密度逐渐降低
                             exponent_samples = -np.log(1 - uniform_samples * (1 - np.exp(-1)))
-                            # 将指数分布的数归一化到k1和k2的范围内
                             sample_indices = np.round(k1 + (k2 - k1) * exponent_samples / max(exponent_samples)).astype(int)
-                            # 将sample_indices转换为torch.tensor
                             sample_indices_tensor = torch.tensor(sample_indices)
-                            # 从image_tensor中取样
                             sampled_elements = image_tensor[sample_indices_tensor]
                             return sampled_elements, sample_indices_tensor
 
-                        # 示例用法
                         image_tensor = last_layer_attention_avg_last_tok_image
                         sorted_image_tensor, _ = torch.sort(image_tensor, descending=True)
                         test_k1 = 0
-                        # test_k2 = (sorted_image_tensor.shape[0]-1)//2
                         test_k2 = round(ATTENTION_RANK * 2)
                         test_k = ATTENTION_RANK
                         sampled_elements, sample_indices_tensor = sample_image_tensor(sorted_image_tensor, test_k1, test_k2, test_k)
-                        # print("Sampled elements:", sampled_elements)
-                        # print("Sample indices:", sample_indices_tensor)
 
-
-
-
-
-
-
-
-
-                        # print(type(last_layer_attention_avg_last_tok))
-                        # get the indexs of the top ATTENTION_RANK tokens
-                        # 获取最高注意力等级标记的索引
                         top_attention_rank_index = last_layer_attention_avg_last_tok_image.topk(ATTENTION_RANK).indices + SYS_LENGTH
-                        # print(top_attention_rank_index)
-                        # print(top_attention_rank_index.shape)
-                        '''
-                        测试：fail
-                        '''
-                        # top_attention_rank_index = sample_indices_tensor + SYS_LENGTH
-                        # top_attention_rank_index = top_attention_rank_index.to(device) 
+
 
                         # keep index
-                        # 保留索引
                         keep_indexs = torch.cat( (torch.arange(SYS_LENGTH,device=device), top_attention_rank_index, torch.arange(SYS_LENGTH+IMAGE_TOKEN_LENGTH,seq_length_with_past,device=device)))
                         # sort index
-                        # 排序索引
                         keep_indexs = keep_indexs.sort().values
                         # update seq length
-                        # 更新seq长度
                         new_seq_length = keep_indexs.shape[0]
                         # filter hidden states
-                        # 过滤隐藏状态
                         hidden_states = hidden_states[:,keep_indexs,:]
                         # update position ids
-                        # 更新位置id
                         position_ids = keep_indexs.unsqueeze(0)
                         # update attention mask
                         # update attention mask
                         new_attention_mask = self._prepare_decoder_attention_mask(
                             None, (batch_size, new_seq_length), inputs_embeds, 0
                         )
-                        # 这个应该是最后一层的注意力
-                        # 删除了丢弃的token数量的注意力， 比如只保留144个，torch.Size([1, 1, 973, 973]) -> torch.Size([1, 1, 541, 541])
-                        # print("new_attention_mask是：")
-                        # print(new_attention_mask.shape)
-                        # print(new_attention_mask[0][0]) # new_attention_mask[0][0]是一个反对角线下三角为0的矩阵
 
 
                 # FastV Token Rerank, Attention Mask Implementation
-                # FastV 令牌重新排序，注意力掩模实施
                 elif USE_FAST_V:
-                    '''
-                    在这种模式下，FastV 不是就地修剪序列，而是修改注意力机制以忽略或取消某些标记的优先级。 
-                    标记序列的长度保持不变，但对某些标记（特别是图像标记）的关注度进行了调整。
-                    这里的方法是操纵注意力掩码而不是令牌序列本身。 
-                    令牌的完整序列（包括图像令牌）始终保持不变，但注意力机制旨在关注或不关注序列的某些部分。
-                    '''
                     if idx<AGG_LAYER:
-                        # 这行代码创建了一个新的注意力掩码new_attention_mask，它的形状是由batch_size（批量大小）和seq_length_with_past（序列长度加上过去的部分）决定的。
-                        # 这个掩码初始化为全1的张量，意味着初始时所有位置都被允许参与注意力计算
                         new_attention_mask = torch.ones(
                             (batch_size, seq_length_with_past), dtype=torch.bool, device=inputs_embeds.device
                         )
-                        # 与输入形状和嵌入信息一起传递到 _prepare_decoder_attention_mask
-                        # 这会产生一个组合的注意力掩码，它尊重语言模型的因果性质，
-                        # 同时允许指定层（idx < AGG_LAYER）内的充分注意力，从而保持标准的注意力行为，直到 FastV 方法开始修剪 AGG_LAYER 之外的层中的标记
                         new_attention_mask = self._prepare_decoder_attention_mask(
                             new_attention_mask, (batch_size, seq_length), inputs_embeds, past_key_values_length
                         )
@@ -948,20 +799,10 @@ class LlamaModel(LlamaPreTrainedModel):
                     elif idx==AGG_LAYER:
                         if idx!=0:
                             last_layer_attention = layer_outputs[1]
-                            # compute average attention over different head
-                            # 计算不同头部的平均注意力
                             last_layer_attention_avg = torch.mean(last_layer_attention, dim=1)[0]
-                            # generate new attention mask based on the average attention, sample the top ATTENTION_RANK tokens with highest attention
-                            # 根据平均注意力生成新的注意力掩模，对注意力最高的前 ATTENTION_RANK 标记进行采样
                             last_layer_attention_avg_last_tok = last_layer_attention_avg[-1]
-                            # get the attention in image token
-                            # 获得图像token中的注意力
                             last_layer_attention_avg_last_tok_image = last_layer_attention_avg_last_tok[SYS_LENGTH:SYS_LENGTH+IMAGE_TOKEN_LENGTH]
-                            # get the indexs of the top ATTENTION_RANK tokens
-                            # 获取最高注意力等级标记的索引
                             top_attention_rank_index = last_layer_attention_avg_last_tok_image.topk(ATTENTION_RANK).indices + SYS_LENGTH
-                            # generate new attention mask
-                            #生成新的注意力掩码
                             gen_attention_mask = torch.ones((batch_size, seq_length_with_past), dtype=torch.bool, device=inputs_embeds.device)
                             gen_attention_mask[:,SYS_LENGTH:SYS_LENGTH+IMAGE_TOKEN_LENGTH] = False
                             gen_attention_mask[:,top_attention_rank_index] = True
@@ -973,10 +814,8 @@ class LlamaModel(LlamaPreTrainedModel):
                         
                         else:
                             gen_attention_mask = torch.ones((batch_size, seq_length_with_past), dtype=torch.bool, device=inputs_embeds.device)
-                            # 随机选取rank个图像token
                             rand_image_attention_mask = [1]*ATTENTION_RANK + [0]*(IMAGE_TOKEN_LENGTH-ATTENTION_RANK)
                             random.shuffle(rand_image_attention_mask)
-                            # 生成掩码
                             gen_attention_mask[:, SYS_LENGTH:SYS_LENGTH+IMAGE_TOKEN_LENGTH] = torch.tensor(rand_image_attention_mask, dtype=attention_mask.dtype, device=inputs_embeds.device)
                             gen_attention_mask = self._prepare_decoder_attention_mask(
                                 gen_attention_mask, (batch_size, seq_length), inputs_embeds, past_key_values_length

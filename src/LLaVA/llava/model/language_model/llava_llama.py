@@ -68,24 +68,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         images: Optional[torch.FloatTensor] = None,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, CausalLMOutputWithPast]:
-        # print("这？")
         if inputs_embeds is None:
-            # print("input_ids是1：")
-            # print(input_ids.shape)
-            # print(input_ids)
-            # print("position_ids是1：")
-            # print(position_ids.shape) # torch.Size([1, 398])
-            # print(position_ids) # [0:397]
-            # print("attention_mask是1：")
-            # print(attention_mask.shape) # torch.Size([1, 398])
-            # print(attention_mask) # 全1
-            # print("past_key_values是1:")
-            # print(past_key_values.shape)
-            # print(past_key_values) # None
-            # print("labels是1:")
-            # print(labels.shape)
-            # print(labels) # None
-            # print("应该进入这个函数")
             (
                 input_ids,
                 position_ids,
@@ -101,24 +84,6 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                 labels,
                 images
             )
-            # print("input_ids是2：")
-            # print(len(input_ids))
-            # print(input_ids) # None
-            # print("position_ids是2：")
-            # print(position_ids.shape) # torch.Size([1, 973])
-            # print(position_ids) # [0:972]
-            # print("attention_mask是2：")
-            # print(attention_mask.shape) # torch.Size([1, 973])
-            # print(attention_mask) # 全1
-            # print("past_key_values是2:")
-            # print(past_key_values.shape)
-            # print(past_key_values) # None
-            # print("labels是2:")
-            # print(labels.shape)
-            # print(labels) # None
-
-            # print("position_ids是：：：：：：")
-            # print(position_ids)
 
         return super().forward(
             input_ids=input_ids,

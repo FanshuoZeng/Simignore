@@ -47,9 +47,7 @@ class CLIPVisionTower(nn.Module):
         else:
             image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), output_hidden_states=True)
             image_features = self.feature_select(image_forward_outs).to(images.dtype)
-        # print("/hy-tmp/FastV/src/LLaVA/llava/model/multimodal_encoder/clip_encoder.py的image_features是：")
-        # print(image_features.shape) #torch.Size([1, 576, 1024])
-        # print(image_features)
+
         return image_features
 
     @property

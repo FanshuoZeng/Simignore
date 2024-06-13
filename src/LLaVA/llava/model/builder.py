@@ -103,8 +103,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
                 model = LlavaMPTForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
             else:
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-                # /hy-tmp/FastV/src/transformers/src/transformers/modeling_utils.py
-                # LlavaLlamaForCausalLM 在 /hy-tmp/FastV/src/LLaVA/llava/model/language_model/llava_llama.py
+
                 model = LlavaLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
     else:
         # Load language model
