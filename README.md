@@ -4,7 +4,7 @@
 
 
 <div align=center>
-<img width="300" src="./fig/structure.pdf"/><br>
+<img width="300" src="./fig/structure.png"/><br>
 Structure
 </div>
 
