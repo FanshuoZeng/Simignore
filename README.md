@@ -44,3 +44,7 @@ bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace_13b.sh
 bash ./src/Simignore/inference/eval/generate_sqa_results.sh
 bash ./src/Simignore/inference/eval/generate_sqa_results_13b.sh 
 ```
+
+<div align=center>
+<img src="./fig/compare.png"/><br>
+</div>
