@@ -5,7 +5,6 @@
 
 <div align=center>
 <img src="./fig/structure.jpg"/><br>
-Structure
 </div>
 
 
@@ -26,18 +25,21 @@ bash setup.sh
 ```
 
 
-## Simignore Inference and Evaluatio
-
-We provide code to reproduce the ablation study on K and R values, as shown in figure-7 in the paper. This implementation masks out the discarded tokens (no speed up) in deep layers for convenience and fair performance comparison.
+## Simignore Inference
 
 *ScienceQA(Image)*
 ```bash
-bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace.sh 
+bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace.sh
+bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace_13b.sh 
 ```
 
+## Simignore Evaluatio
 
-
-
+*ScienceQA(Image)*
+```bash
+bash ./src/Simignore/inference/eval/generate_sqa_results.sh
+bash ./src/Simignore/inference/eval/generate_sqa_results_13b.sh 
+```
 
 
 
