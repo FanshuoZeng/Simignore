@@ -24,6 +24,8 @@ cd src
 bash setup.sh
 ```
 
+## ScienceQA dataset
+
 
 ## Simignore Zero-shot Inference
 We provide the Zero-shot inference procedure for the LLaVA1.5-7b model and the LLaVA1.5-13b model on the *ScienceQA(Image)* dataset.
