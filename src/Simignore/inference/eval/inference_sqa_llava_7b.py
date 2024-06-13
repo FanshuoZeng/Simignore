@@ -136,7 +136,7 @@ def get_chunk(lst, n, k):
     chunks = split_list(lst, n)
     return chunks[k]
 
-question_file = "/hy-tmp/LLaVA/ScienceQA/data/scienceqa/llava_test_CQM-A_image.json"
+question_file = "Simignore/data/scienceqa/llava_test_CQM-A_image.json"
 num_chunks = 1
 chunk_idx = 0
 questions = json.load(open(os.path.expanduser(question_file), "r"))
@@ -150,7 +150,7 @@ cur_prompt_list=[]
 ans_id_list=[]
 
 
-image_folder = "/hy-tmp/LLaVA/ScienceQA/data/scienceqa/images/test"
+image_folder = "Simignore/data/scienceqa/images/test"
 valid_images=[]
 
 valid_prompt = []

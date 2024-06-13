@@ -1,6 +1,6 @@
 export CUDA_VISIBLE_DEVICES=0
 
-model_path=../LLaVA/llava-v1.5-13b
+model_path=Simignore/checkpoint/llava/llava-v1.5-13b
 output_path=sqa_eval_simignore
 mkdir -p $output_path
 
