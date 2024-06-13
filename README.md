@@ -25,8 +25,8 @@ bash setup.sh
 ```
 
 
-## Simignore Inference
-
+## Simignore Zero-shot Inference
+We provide the Zero-shot inference procedure for the LLaVA1.5-7b model and the LLaVA1.5-13b model on the ScienceQA dataset.
 *ScienceQA(Image)*
 ```bash
 bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace.sh
