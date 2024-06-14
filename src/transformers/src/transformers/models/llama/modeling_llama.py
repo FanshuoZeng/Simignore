@@ -749,8 +749,8 @@ class LlamaModel(LlamaPreTrainedModel):
                         last_layer_attention_avg_last_tok_image = last_layer_attention_avg_last_tok[SYS_LENGTH:SYS_LENGTH+IMAGE_TOKEN_LENGTH]
 
                         def sample_image_tensor(image_tensor, k1, k2, k):
-                            assert 0 <= k1 < k2 <= image_tensor.numel(), "k1和k2应该在image_tensor的范围内"
-                            assert k > 0, "k应该大于0"
+                            assert 0 <= k1 < k2 <= image_tensor.numel(), "k1 and k2 should be within the range of image_tensor"
+                            assert k > 0, "k should be greater than 0"
 
                             uniform_samples = np.linspace(0, 1, k)
                             exponent_samples = -np.log(1 - uniform_samples * (1 - np.exp(-1)))
