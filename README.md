@@ -33,11 +33,11 @@ You can download **ScienceQA** from [Google Drive](https://drive.google.com/driv
 ## Simignore Zero-shot Inference
 We provide the Zero-shot inference procedure for the LLaVA1.5-7b model and the LLaVA1.5-13b model on the *ScienceQA(Image)* dataset. We conduct the following experiments on one 4090D GPU (24G).
 
-Inference using LLaVA-v1.5-7b model
+Inference using LLaVA-v1.5-7b model.
 ```bash
 bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace.sh
 ```
-Inference using LLaVA-v1.5-13b model
+Inference using LLaVA-v1.5-13b model.
 ```bash
 bash ./src/Simignore/inference/eval/eval_sqa_latency_inplace_13b.sh 
 ```
