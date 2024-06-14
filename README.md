@@ -26,7 +26,7 @@ bash setup.sh
 
 ## Checkpoint
 
-You can download **LLaVA1.5-7b** from [Hugging Face](https://huggingface.co/liuhaotian/llava-v1.5-7b) and unzip the images under `checkpoint/llava`.
+You can download **LLaVA1.5-7b** from [Hugging Face](https://huggingface.co/liuhaotian/llava-v1.5-7b) and save it under `checkpoint/llava`.
 ## ScienceQA dataset
 You can download **ScienceQA** from [Google Drive](https://drive.google.com/drive/folders/1w8imCXWYn2LxajmGeGH_g5DaL2rabHev?usp=sharing) and unzip the images under `data/scienceqa/images`.
 
