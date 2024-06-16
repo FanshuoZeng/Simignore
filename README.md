@@ -1,4 +1,4 @@
-<h1 align="center">Simignore:Enhancing Multimodal Large Language Models Complex Reason via Similarity Computation</h1>
+<h1 align="center">Simignore:Enhancing Multimodal Large Language Models Complex Reasoning via Similarity Computation</h1>
 
 
 
