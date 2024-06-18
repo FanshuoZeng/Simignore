@@ -56,5 +56,5 @@ bash ./src/Simignore/inference/eval/generate_sqa_results_13b.sh
 ```
 ## Main result
 <div align=center>
-<img src="./fig/compare.png"/><br>
+<img src="./fig/main-result.png"/><br>
 </div>
