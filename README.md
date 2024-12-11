@@ -1,12 +1,13 @@
 <h1 align="center">Simignore:Enhancing Multimodal Large Language Models Complex Reasoning via Similarity Computation</h1>
 
-### News
-- 2024.12.10 The paper has been accepted in AAAI 2025
 
 
 <div align=center>
 <img src="./fig/structure.jpg"/><br>
 </div>
+
+### News
+- 2024.12.10 The paper has been accepted in AAAI 2025
 
 
 
