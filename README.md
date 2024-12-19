@@ -50,9 +50,22 @@ bash ./src/Simignore/inference/eval/generate_sqa_results.sh
 ```
 Evaluation using LLaVA-v1.5-13b model.
 ```bash
+
+
+
 bash ./src/Simignore/inference/eval/generate_sqa_results_13b.sh 
 ```
 ## Main result
 <div align=center>
 <img src="./fig/main-result.png"/><br>
 </div>
+
+## Citation
+```
+@article{zhang2024enhancing,
+  title={Enhancing Multimodal Large Language Models Complex Reason via Similarity Computation},
+  author={Zhang, Xiaofeng and Zeng, Fanshuo and Quan, Yihao and Hui, Zheng and Yao, Jiawei},
+  journal={The 39th Annual AAAI Conference on Artificial Intelligence},
+  year={2024}
+}
+```
