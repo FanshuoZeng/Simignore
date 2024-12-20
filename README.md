@@ -61,7 +61,7 @@ bash ./src/Simignore/inference/eval/generate_sqa_results_13b.sh
 </div>
 
 ## Citation
-```
+```bibtex
 @article{zhang2024enhancing,
   title={Enhancing Multimodal Large Language Models Complex Reason via Similarity Computation},
   author={Zhang, Xiaofeng and Zeng, Fanshuo and Quan, Yihao and Hui, Zheng and Yao, Jiawei},
