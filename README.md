@@ -68,4 +68,14 @@ bash ./src/Simignore/inference/eval/generate_sqa_results_13b.sh
   journal={The 39th Annual AAAI Conference on Artificial Intelligence},
   year={2024}
 }
+
+@article{zhang2024simignore,
+  title={Simignore: Exploring and enhancing multimodal large model complex reasoning via similarity computation},
+  author={Zhang, Xiaofeng and Zeng, Fanshuo and Gu, Chaochen},
+  journal={Neural Networks},
+  pages={107059},
+  year={2024},
+  publisher={Elsevier}
+}
+
 ```
